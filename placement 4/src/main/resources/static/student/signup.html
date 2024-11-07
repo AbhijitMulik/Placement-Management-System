@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Student Sign Up</h2>
+        <form id="signupForm">
+            <input type="text" id="name" placeholder="Full Name" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <input type="text" id="dept" placeholder="Department" required>
+            <input type="number" id="yearOfStudy" placeholder="Year of Study" required>
+            <input type="number" step="0.01" id="cgpa" placeholder="CGPA" required>
+            <input type="text" id="skills" placeholder="Skills" required>
+            <input type="number" step="0.01" id="HSCMarks" placeholder="HSC Marks" required>
+            <input type="number" step="0.01" id="SSCMarks" placeholder="SSC Marks" required>
+            <input type="text" id="major" placeholder="Major" required>
+            <button type="submit">Sign Up</button>
+        </form>
+        <p>Already have an account? <a id="loginLink" href="#">Login here</a></p>
+    </div>
+    <script src="signup.js"></script>
+</body>
+</html>

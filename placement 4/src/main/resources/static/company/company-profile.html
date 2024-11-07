@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Profile</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="profile-container">
+        <h2>Welcome, <span id="company-name">undefined</span></h2>
+        <div class="profile-details">
+            <p>Company Type: <span id="company-type">undefined</span></p>
+            <p>Contact Person: <span id="contact-person">undefined</span></p>
+            <p>Email: <span id="company-email">undefined</span></p>
+            <p>No. of Vacancies: <span id="no-of-vacancies">undefined</span></p>
+            <p>Criteria CGPA: <span id="criteria-cgpa">undefined</span></p>
+            <p>Interview Date: <span id="interview-date">undefined</span></p>
+        </div>
+        <button id="edit-profile">Edit Profile</button>
+        <button id="logout">Logout</button>
+        <div id="edit-profile-modal" style="display: none;">
+            <form id="editProfileForm">
+                <input type="text" id="edit-name" placeholder="Company Name" required>
+                <input type="text" id="edit-company-type" placeholder="Company Type" required>
+                <input type="text" id="edit-contact-person" placeholder="Contact Person" required>
+                <input type="email" id="edit-email" placeholder="Email" required>
+                <input type="number" id="edit-vacancies" placeholder="No. of Vacancies" required>
+                <input type="number" step="0.01" id="edit-cgpa" placeholder="Criteria CGPA" required>
+                <input type="date" id="edit-date" placeholder="Interview Date" required>
+                <button type="submit">Update Profile</button>
+                <button type="button" id="close-modal">Close</button>
+            </form>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

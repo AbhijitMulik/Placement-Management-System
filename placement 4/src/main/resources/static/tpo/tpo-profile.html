@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TPO Profile</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .verified {
+            color: blue;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        .verified-icon {
+            color: blue;
+            margin-left: 5px;
+        }
+        .company-details {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        /* Modal styling for better visibility */
+        #edit-profile-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h2>Welcome, <span id="tpo-name">undefined</span></h2>
+        <div class="profile-details">
+            <p>Email: <span id="tpo-email">undefined</span></p>
+            <p>Contact Number: <span id="tpo-contactNo">undefined</span></p>
+        </div>
+        <button id="edit-profile">Edit Profile</button>
+        <button id="logout">Logout</button>
+
+        <h3>Registered Companies</h3>
+        <div id="company-list"></div>
+
+        <!-- Edit Profile Modal -->
+        <div id="edit-profile-modal">
+            <form id="editProfileForm">
+                <input type="text" id="edit-name" placeholder="Full Name" required>
+                <input type="email" id="edit-email" placeholder="Email" required>
+                <input type="text" id="edit-contactNo" placeholder="Contact Number" required>
+                <button type="submit">Update Profile</button>
+                <button type="button" id="close-modal">Close</button>
+            </form>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
