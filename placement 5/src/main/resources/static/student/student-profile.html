@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Profile</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="profile-container">
+      <h2>Welcome, <span id="student-name">undefined</span></h2>
+      <div class="profile-details">
+          <p>Email: <span id="student-email">undefined</span></p>
+          <p>Department: <span id="student-dept">undefined</span></p>
+          <p>CGPA: <span id="student-cgpa">undefined</span></p>
+          <p>Skills: <span id="student-skills">undefined</span></p>
+      </div>
+      <button id="edit-profile">Edit Profile</button>
+      <button id="logout">Logout</button>
+      <h3>Verified Companies</h3>
+      <div id="verified-company-list"></div>
+      <div id="edit-profile-modal" style="display: none;">
+          <form id="editProfileForm">
+              <input type="text" id="edit-name" placeholder="Full Name" required>
+              <input type="email" id="edit-email" placeholder="Email" required>
+              <input type="text" id="edit-dept" placeholder="Department" required>
+              <input type="number" step="0.01" id="edit-cgpa" placeholder="CGPA" required>
+              <input type="text" id="edit-skills" placeholder="Skills" required>
+              <button type="submit">Update Profile</button>
+              <button type="button" id="close-modal">Close</button>
+          </form>
+      </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

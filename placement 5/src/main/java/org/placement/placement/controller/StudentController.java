@@ -2,9 +2,11 @@ package org.placement.placement.controller;
 
 import java.util.List;
 
+import org.placement.placement.entity.Application;
 import org.placement.placement.entity.Company;
 import org.placement.placement.entity.Student;
 import org.placement.placement.request.LoginRequest;
+import org.placement.placement.service.ApplicationService;
 import org.placement.placement.service.CompanyService;
 import org.placement.placement.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class StudentController {
 
     @Autowired
     private CompanyService companyService;
+    
+    @Autowired
+    private ApplicationService applicationService;
     
 
 
@@ -72,4 +77,27 @@ public ResponseEntity<Student> getStudentById(@PathVariable int id) {
     public List<Company> getVerifiedCompanies() {
         return companyService.getVerifiedCompanies();
     }
+
+   @PostMapping("/{studentId}/apply/{companyId}")
+public ResponseEntity<String> applyForCompany(@PathVariable int studentId, @PathVariable int companyId) {
+    if (!applicationService.hasApplied(studentId, companyId)) {
+        Application application = new Application();
+        application.setStudent(studentService.getStudentById(studentId));
+        application.setCompany(companyService.getCompanyById(companyId));
+        applicationService.applyForCompany(application);
+        return ResponseEntity.ok("Applied successfully");
+    } else {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Already applied");
+    }
+}
+
+// Check if a student has applied to a specific company
+@GetMapping("/{studentId}/has-applied/{companyId}")
+public ResponseEntity<Boolean> hasApplied(@PathVariable int studentId, @PathVariable int companyId) {
+    boolean hasApplied = applicationService.hasApplied(studentId, companyId);
+    return ResponseEntity.ok(hasApplied);
+}
+
+
+
 }

@@ -5,6 +5,12 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location.href = "login.html";
         return;
     }
+    const applicantList = document.getElementById("applicant-list");
+    if (!applicantList) {
+        console.error("Element with id 'applicant-list' not found in the DOM.");
+    } else {
+        console.log("applicant-list element found:", applicantList);
+    }
 
     // Fetch company data
     fetch(`http://localhost:8080/companies/${companyId}`)
@@ -92,4 +98,48 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.removeItem('companyId');
         window.location.href = "login.html";
     });
+
+    // Fetch applicants
+    fetch(`http://localhost:8080/companies/${companyId}/applications`)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to fetch applications');
+        }
+        return response.json(); // Parse JSON response
+    })
+    .then(applicants => {
+        const applicantList = document.getElementById("applicant-list");
+        if (!applicantList) {
+            console.error("Element with id 'applicant-list' not found.");
+            alert("Applicants list section is missing.");
+            return;
+        }
+
+        applicantList.innerHTML = ""; // Clear existing content
+
+        if (applicants && applicants.length > 0) {
+            applicants.forEach(applicant => {
+                const listItem = document.createElement("li");
+                const studentName = applicant.student?.name || "Unknown Student";
+                const dept = applicant.student?.dept || "No Department Info";
+                const email = applicant.student?.email || "No Email Provided";
+
+                listItem.innerHTML = `
+                    <strong>${studentName}</strong><br>
+                    Department: ${dept}<br>
+                    Email: ${email}
+                `;
+                applicantList.appendChild(listItem);
+            });
+        } else {
+            const noApplicants = document.createElement("li");
+            noApplicants.innerText = "No applicants found.";
+            applicantList.appendChild(noApplicants);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("Error fetching applicants. Please try again later.");
+    });
+
 });

@@ -1,6 +1,10 @@
 package org.placement.placement.controller;
 
+import java.util.List;
+
+import org.placement.placement.entity.Application;
 import org.placement.placement.entity.Company;
+import org.placement.placement.service.ApplicationService;
 import org.placement.placement.service.CompanyService;
 import org.placement.placement.request.LoginRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +20,8 @@ public class CompanyController {
     @Autowired
     private CompanyService companyService;
 
-    
+    @Autowired
+    private ApplicationService applicationService;
 
     // Login method to validate email and password
     @PostMapping("/login")
@@ -57,4 +62,16 @@ public class CompanyController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
+   
+    @GetMapping("/{id}/applications")
+    public ResponseEntity<List<Application>> getApplicationsForCompany(@PathVariable int id) {
+        List<Application> applications = applicationService.getApplicationsByCompanyId(id);
+        if (applications != null && !applications.isEmpty()) {
+            return ResponseEntity.ok(applications);
+        } else {
+            return ResponseEntity.noContent().build(); // Return 204 if no applications found
+        }
+    }
+
 }

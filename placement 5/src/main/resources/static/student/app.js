@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", function() {
             return response.json();
         })
         .then(data => {
-            // Ensure data contains expected fields
             if (data && data.name && data.email && data.dept && data.cgpa && data.skills) {
                 document.getElementById('student-name').innerText = data.name;
                 document.getElementById('student-email').innerText = data.email;
@@ -51,7 +50,6 @@ document.addEventListener("DOMContentLoaded", function() {
     // Handle profile update form submission
     document.getElementById("editProfileForm").addEventListener("submit", function(event) {
         event.preventDefault();
-
         const updatedData = {
             name: document.getElementById("edit-name").value,
             email: document.getElementById("edit-email").value,
@@ -79,26 +77,75 @@ document.addEventListener("DOMContentLoaded", function() {
             console.error("Error:", error);
             alert("Error updating profile. Please try again.");
         });
-    });
+    }); // <- This is where the bracket was missing.
 
+    // Fetch verified companies
+    
+         // Fetch the list of companies
+         fetch("http://localhost:8080/students/verifiedCompanies")
+         .then(response => response.json())
+         .then(companies => {
+             const companyListDiv = document.getElementById('company-list');
+             companyListDiv.innerHTML = ''; // Clear previous list
 
-    fetch("http://localhost:8080/students/verifiedCompanies")
-            .then(response => response.json())
-            .then(companies => {
-                const verifiedCompanyList = document.getElementById("verified-company-list");
-                companies.forEach(company => {
-                    const companyItem = document.createElement("div");
-                    companyItem.innerHTML = `
-                        <p>${company.name}</p>
-                        <button>Apply Now</button>
-                    `;
-                    verifiedCompanyList.appendChild(companyItem);
-                });
-            });
+             companies.forEach(company => {
+                 const companyDiv = document.createElement('div');
+                 companyDiv.classList.add('company-item');
+
+                 const applyButton = document.createElement('button');
+                 applyButton.innerText = "Apply Now";
+                 applyButton.id = `apply-button-${company.id}`;
+                 
+                 // Check if the student has already applied
+                 fetch(`http://localhost:8080/students/${studentId}/has-applied/${company.id}`)
+                     .then(response => response.json())
+                     .then(data => {
+                         if (data.hasApplied) {
+                             applyButton.innerText = "Applied";
+                             applyButton.disabled = true;
+                         }
+                     });
+
+                 applyButton.addEventListener('click', function() {
+                     applyToCompany(studentId, company.id);
+                 });
+
+                 companyDiv.innerHTML = `
+                     <h4>${company.name}</h4>
+                     <p>${company.companyType}</p>
+                     <p>Criteria: CGPA >= ${company.criteriaCgpa}</p>
+                 `;
+                 companyDiv.appendChild(applyButton);
+                 companyListDiv.appendChild(companyDiv);
+             });
+         });
+ })
+ .catch(error => {
+     console.error("Error fetching student data:", error);
+     alert("Error fetching profile data.");
+ });
 
     // Handle logout
     document.getElementById("logout").addEventListener("click", function() {
         localStorage.removeItem('studentId');
         window.location.href = "login.html";
     });
-});
+
+
+// Apply for company function with button update
+window.applyForCompany = function(companyId, button) {
+    const studentId = localStorage.getItem('studentId');
+    
+    fetch(`http://localhost:8080/students/${studentId}/apply/${companyId}`, { method: "POST" })
+        .then(response => response.json())
+        .then(data => {
+            alert(data);
+            // Change button to "Applied"
+            button.innerText = "Applied";
+            button.disabled = true; // Disable the button after applying
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("Error applying for the company.");
+        });
+};

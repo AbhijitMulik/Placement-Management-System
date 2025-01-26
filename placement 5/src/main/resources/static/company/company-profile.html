@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Profile</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="profile-container">
+        <!-- Welcome message with company name -->
+        <h2>Welcome, <span id="company-name">Loading...</span></h2>
+
+        <!-- Company Details Section -->
+        <div class="profile-details">
+            <h3>Company Details</h3>
+            <p>Company Type: <span id="company-type">Loading...</span></p>
+            <p>Contact Person: <span id="contact-person">Loading...</span></p>
+            <p>Email: <span id="company-email">Loading...</span></p>
+            <p>No. of Vacancies: <span id="no-of-vacancies">Loading...</span></p>
+            <p>Criteria CGPA: <span id="criteria-cgpa">Loading...</span></p>
+            <p>Interview Date: <span id="interview-date">Loading...</span></p>
+        </div>
+
+        <!-- Buttons Section -->
+        <div class="button-group">
+            <button id="edit-profile">Edit Profile</button>
+            <button id="logout">Logout</button>
+        </div>
+
+        <!-- Applicants Section -->
+        <h3>Applicants</h3>
+        <ul id="applicant-list">
+            <!-- Dynamic list of applicants will be inserted here by JavaScript -->
+        </ul>
+
+        <!-- Edit Profile Modal -->
+        <div id="edit-profile-modal" style="display: none;" class="modal">
+            <form id="editProfileForm">
+                <h3>Edit Profile</h3>
+                <label for="edit-name">Company Name:</label>
+                <input type="text" id="edit-name" placeholder="Company Name" required>
+                
+                <label for="edit-company-type">Company Type:</label>
+                <input type="text" id="edit-company-type" placeholder="Company Type" required>
+                
+                <label for="edit-contact-person">Contact Person:</label>
+                <input type="text" id="edit-contact-person" placeholder="Contact Person" required>
+                
+                <label for="edit-email">Email:</label>
+                <input type="email" id="edit-email" placeholder="Email" required>
+                
+                <label for="edit-vacancies">No. of Vacancies:</label>
+                <input type="number" id="edit-vacancies" placeholder="No. of Vacancies" required>
+                
+                <label for="edit-cgpa">Criteria CGPA:</label>
+                <input type="number" step="0.01" id="edit-cgpa" placeholder="Criteria CGPA" required>
+                
+                <label for="edit-date">Interview Date:</label>
+                <input type="date" id="edit-date" placeholder="Interview Date" required>
+                
+                <div class="modal-actions">
+                    <button type="submit">Update Profile</button>
+                    <button type="button" id="close-modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript File -->
+    <script src="app.js"></script>
+</body>
+</html>
